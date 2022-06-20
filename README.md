@@ -5,7 +5,7 @@
 </div>
 <div align="center">
 <a href="https://github.com/IMXNOOBX/ScriptKid" title="">
-<img src="https://img.shields.io/badge/version-1.0.5-blue.svg?style=for-the-badge&logo=appveyor" alt="Version - 1.0.7">
+<img src="https://img.shields.io/badge/version-1.0.0-blue.svg?style=for-the-badge&logo=appveyor" alt="Version - 1.0.7">
 </a>
 <a href="https://github.com/IMXNOOBX/ScriptKid" title="">
 <img src="https://img.shields.io/badge/documentation-yes-brightgreen.svg?style=for-the-badge" alt="Maintenance">
