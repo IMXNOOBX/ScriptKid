@@ -1,3 +1,8 @@
+--------------------------
+-- github.com/IMXNOOBX  --
+-- Version: 1.0.1       --
+--------------------------
+
 local config = {
 	admins = {
 		reaction_to_admin = 'session', -- 'session' or 'bail' or 'crash'
@@ -7,11 +12,6 @@ local config = {
 		reaction_to_dev = 'session', -- 'session' or 'bail' or 'crash'
 	}
 }
-
-function OnInit()
-	-- console.log(con_color.Green, '[R* admin] Script loaded! Reaction to R* admin: ' .. config.reaction_to_admin .. '\n')
-	utils.notify('R* Admin', 'Loaded!\nReaction to R* admin: ' .. config.admins.reaction_to_admin..(config.developers.developer_flag and '\nReaction to Developer Flag: '..config.developers.reaction_to_dev or '\nDeveloper Flags Reactions Disabled!') , gui_icon.warning, notify_type.success)
-end
 
 local rstar_admins = {
 	67241866,
@@ -187,10 +187,6 @@ function OnPlayerJoin(ply, name, rid, ip, host_key)
 	end
 end
 
-function OnDone()
-    console.log(con_color.Green, '[R* admin] Script unloaded!\n')
-	utils.notify('R* Admin', 'Script unloaded!', gui_icon.warning, notify_type.success)
+function OnInit()
+	utils.notify('R* Admin', 'Loaded!\nReaction to R* admin: ' .. config.admins.reaction_to_admin..(config.developers.developer_flag and '\nReaction to Developer Flag: '..config.developers.reaction_to_dev or '\nDeveloper Flags Reactions Disabled!') , gui_icon.warning, notify_type.success)
 end
-
--- player.is_friend
--- player.is_rockstar_dev
