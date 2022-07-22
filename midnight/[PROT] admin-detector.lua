@@ -1,7 +1,8 @@
---------------------------
--- github.com/IMXNOOBX  --
--- Version: 1.0.1       --
---------------------------
+--[[
+**  github.com/IMXNOOBX            **
+**  Version: 1.0.0       		   **
+**  github.com/IMXNOOBX/ScriptKid  **
+]]
 
 local config = {
 	admins = {
