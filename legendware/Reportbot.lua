@@ -4,7 +4,7 @@
 **  github.com/IMXNOOBX/ScriptKid  **
 ]]
 
--- Was my first ty dont blame me because of the poor code
+-- Was my first try dont blame me because of the poor code
 
 local js = require('lib')
 local ffi = require('ffi')
