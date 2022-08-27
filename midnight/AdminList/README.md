@@ -147,4 +147,3 @@ MaxPayne3Dev11 | 22577440 | Max Payne 3 | Core game dev | None
 MaxPayne3Dev9 | 22577121 | Max Payne 3 | Core game dev | None
 GTAdev4 | 16395782 | GTA 5 | Core game dev | None
 GTAdev3 | 20158757 | GTA 5 | Core game dev | None
-Unknown | 213827327 | GTA 5 | Testing Bot | None
