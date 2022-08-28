@@ -1,13 +1,7 @@
---[[
-**  github.com/IMXNOOBX            **
-**  Version: 1.1.2       		   **
-**  github.com/IMXNOOBX/ScriptKid  **
-]]
-
 local config = {
 	enabled = true,
 	only_menu_open = false,
-	update_rate = 10 -- Every 10 seconds will try to get all the palyers in the session
+	pulse_on_modder = true,
 }
 
 local useful = {
@@ -16,12 +10,15 @@ local useful = {
 	total_players = 0,
 	timeount = 0,
 	load_ticks = system.ticks(),
+	-- is_in_session = true
 	old_x,
 	old_y
 }
 
-
-local r, g, b, a = 30, 33, 35, 200
+-- local function ToCol(col)
+-- 	return math.floor(col.x * 255), math.floor(col.y * 255), math.floor(col.z * 255), math.floor(col.w * 255)
+-- end
+local r, g, b, a = 30, 33, 35, 200--ToCol(menu.get_color(menu_color.ChildBg))
 local y = draw.get_screen_height() or draw.get_window_height()
 local x = draw.get_screen_width() or draw.get_window_width()
 
@@ -45,6 +42,7 @@ function OnFrame()
 		useful.old_y = tz_y
 	end
 
+	-- draw.text(x * 0.5, y * 0.5, 'x: '..tz_x..' y: '..tz_x)
 	-- Background
 	draw.set_rounding(rounding)
 	draw.set_color(0, r, g, b, a)
@@ -73,5 +71,5 @@ function OnFeatureTick()
 	if system.ticks() <= update_rate then return end
 
 	useful.total_players = #getAllPlayers()
-	update_rate = system.ticks() + config.update_rate * 1000 -- seconds to ms
+	update_rate = system.ticks() + 10000 -- 10 seconds
 end
