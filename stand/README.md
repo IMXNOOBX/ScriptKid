@@ -14,20 +14,20 @@
 </div>
 
 <div align="center">
-<img src="https://i.imgur.com/vpI2ZFj.png" alt="Maintenance" style="height: 100px">
+<img src="https://s3-us-west-2.amazonaws.com/www.guilded.gg/TeamAvatar/c1cca3bb7c1dd81e74e9e511bfdafbce-Large.png?w=450&h=450" alt="Maintenance" style="height: 100px">
 </div>
 
 ## 📘 Description
 
 <div align="center">
-Scripts compilation to interact with midnight api's.
+Scripts compilation to interact with stands api's.
 </div>
       
 ## 🌠 [Documents](https://github.com/IMXNOOBX/ScriptKid)
 
 Api docs for used to make theese scripts!
 
-- Click Here -> [📚 Docs](https://docs.midnight.im)
+- Click Here -> [📚 Docs](https://stand.gg/help/lua-api-documentation)
 
 ## 👤 Author & Colaborator
 
@@ -38,7 +38,7 @@ Api docs for used to make theese scripts!
 
 ## 📝 License
 
-Copyright © 2022 [IMXNOOBX](https://github.com/IMXNOOBX).<br />
+Copyright © 2022 [IMXNOOBX](https://github.com/IMXNOOBX).<br/>
 This project is [ISC](https://github.com/IMXNOOBX/ScriptKid/blob/master/LICENSE) licensed.
 
 ##
