@@ -1,3 +1,10 @@
+--[[
+**  github.com/IMXNOOBX            **
+**  Version: 1.0.7       		   **
+**  github.com/IMXNOOBX/ScriptKid  **
+]]
+
+
 local config = {
 	enabled = true,
 	only_menu_open = true,
