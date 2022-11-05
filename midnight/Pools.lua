@@ -1,9 +1,8 @@
 --[[
 **  github.com/IMXNOOBX            **
-**  Version: 1.0.7       		   **
+**  Version: 1.0.8       		   **
 **  github.com/IMXNOOBX/ScriptKid  **
 ]]
-
 
 local config = {
 	enabled = true,
@@ -38,18 +37,20 @@ function OnFrame()
 		pickups = pools.get_all_pickups()
 	}	
 
-	-- local tz_x, tz_y = draw.get_text_size_x(wm_text), draw.get_text_size_y(wm_text) -- it sets at 0 when i open another script that reders something
-
 	-- -- Background
 	draw.set_rounding(rounding)
 	draw.set_color(0, r, g, b, a)
-	draw.rect_filled(mw + mx + config.x_add - 5, my + config.y_add - 5, mw + mx + config.x_add + 150, my + config.y_add + 80)
+	draw.rect_filled(mw + mx + config.x_add - 5, my + config.y_add - 5, mw + mx + config.x_add + 150, my + config.y_add + 95)
 
 	-- Text
 	draw.set_color(0, 255, 255, 255, 255)
-	draw.text(mw + mx + config.x_add, my + 15 + config.y_add, tostring('Peds: '.. #pools.peds..' / 256')) -- Peds
-	draw.text(mw + mx + config.x_add, my + config.y_add, tostring('Vehicles: '.. #pools.vehicles..' / 300')) -- Vehicles
-	draw.text(mw + mx + config.x_add, my + 30 + config.y_add, tostring('Objects: '.. #pools.objects..' / 2300')) -- Objects
-	draw.text(mw + mx + config.x_add, my + 45 + config.y_add, tostring('Entities: '.. #pools.entities..' / ?')) -- Entities
-	draw.text(mw + mx + config.x_add, my + 60 + config.y_add, tostring('Pickups: '.. #pools.pickups..' / 73')) -- Pickups
+	draw.text(mw + mx + config.x_add, my + config.y_add - 4, tostring('Pools'))
+	
+	draw.line(mw + mx + config.x_add, my + config.y_add + 14, mw + mx + config.x_add + 145, my + config.y_add + 14)
+
+	draw.text(mw + mx + config.x_add, my + 15 +config.y_add, tostring('Vehicles: '.. #pools.vehicles..' / 300')) -- Vehicles
+	draw.text(mw + mx + config.x_add, my + 30 + config.y_add, tostring('Peds: '.. #pools.peds..' / 256')) -- Peds
+	draw.text(mw + mx + config.x_add, my + 45 + config.y_add, tostring('Objects: '.. #pools.objects..' / 2300')) -- Objects
+	draw.text(mw + mx + config.x_add, my + 60 + config.y_add, tostring('Entities: '.. #pools.entities..' / 700')) -- Entities
+	draw.text(mw + mx + config.x_add, my + 75 + config.y_add, tostring('Pickups: '.. #pools.pickups..' / 73')) -- Pickups
 end
