@@ -45,7 +45,7 @@ local formats = {
 	"MP1_%s"
 }
 
-function STAT_SET_INT(hash, value)
+local function STAT_SET_INT(hash, value)
 	for _, f in ipairs(formats) do
 		STATS.STAT_SET_INT(string.smart_joaat(f:format(hash)), value, true)
 	end
