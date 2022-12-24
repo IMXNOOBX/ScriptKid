@@ -1,6 +1,6 @@
 --[[
 **  Developer: midnight.im/members/36367/ **
-**  Version: 1.0.1      		          **
+**  Version: 1.0.2      		          **
 **  Gta5 Version: 1.64                    **
 **  github.com/IMXNOOBX/ScriptKid         **
 ]]
@@ -40,14 +40,14 @@ function disp_time(time)
     return answer
 end
 
-local formats = {
+local formats = { -- make it work with both gta online characters
 	"MP0_%s",
 	"MP1_%s"
 }
 
 local function STAT_SET_INT(hash, value)
 	for _, f in ipairs(formats) do
-		STATS.STAT_SET_INT(string.smart_joaat(f:format(hash)), value, true)
+        stats.set_u64(string.smart_joaat(f:format(hash)), value)
 	end
 end
 
@@ -61,9 +61,9 @@ function OnFeatureTick()
         script_global:new(262145 + 24045):set_int64(300000) -- fremode.c:1028716 - Dont change or it will permanently bug the safe value
         script_global:new(262145 + 24041):set_int64(300000) -- fremode.c:979059  - Same
 
-        STAT_SET_INT("CLUB_POPULARITY", 10000, true)
-        STAT_SET_INT("CLUB_PAY_TIME_LEFT", -1, true)
-        STAT_SET_INT("CLUB_POPULARITY", 100000, true)
+        STAT_SET_INT("CLUB_POPULARITY", 10000)
+        STAT_SET_INT("CLUB_PAY_TIME_LEFT", -1)
+        STAT_SET_INT("CLUB_POPULARITY", 100000)
 
     end
 
