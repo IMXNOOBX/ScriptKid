@@ -1,6 +1,6 @@
 --[[
 **  github.com/IMXNOOBX            **
-**  Version: 1.1.2       		   **
+**  Version: 1.1.3       		   **
 **  github.com/IMXNOOBX/ScriptKid  **
 ]]
 
@@ -54,6 +54,7 @@ function OnFrame()
 	draw.set_color(0, 255, 255, 255, 255)
 	draw.text(x - tz_x - 10, 15, wm_text)
 	draw.texture(useful.midnight_icon, x - tz_x - 40, 12, tz_y + 7, tz_y + 5) -- 45 x 45 original
+	draw.set_rounding(0)
 end
 
 
