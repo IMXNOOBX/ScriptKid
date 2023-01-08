@@ -20,14 +20,14 @@
 ## 📘 Description
 
 <div align="center">
-Scripts compilation to interact with neverlose's api's.
+Scripts compilation to interact with onetaps's api's.
 </div>
       
 ## 🌠 [Documents](https://github.com/IMXNOOBX/ScriptKid)
 
 Api docs for used to make theese scripts!
 
-- Click Here -> [📚 Docs](https://lua.neverlose.cc)
+- Click Here -> [📚 Docs](https://onetap.com)
 
 ## 👤 Author & Colaborator
 
