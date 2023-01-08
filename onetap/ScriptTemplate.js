@@ -53,6 +53,6 @@ function render_menu() {
 
 function on_draw() {
 	if (UI.IsMenuOpen()) {
-
+		render_menu()
 	}
 }
