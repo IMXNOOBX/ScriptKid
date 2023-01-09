@@ -5,7 +5,11 @@ local developers = {'IMXNOOBX'}
 
 local ffi = require 'ffi';
 
-local V, F, G, M, S = {} -- V: variables, F: functions, G: groups,  M: menu, S: script
+local V = {} -- V: variables
+local F = {} -- F: functions
+local G = {} -- G: groups
+local M = {} -- M: menu
+local S = {} -- S: script
 
 
 V = {
