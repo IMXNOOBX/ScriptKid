@@ -60,5 +60,8 @@ function S.render_menu()
 end
 
 callbacks.Register("Draw", function() 
-	S.render_menu()
+
+	if gui.Reference("Menu"):IsActive() then
+		S.render_menu()
+	end
 end);
