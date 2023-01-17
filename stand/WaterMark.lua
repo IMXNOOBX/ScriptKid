@@ -1,6 +1,6 @@
 --[[
 **  github.com/IMXNOOBX            **
-**  Version: 1.0.6       		   **
+**  Version: 1.0.8       		   **
 **  github.com/IMXNOOBX/ScriptKid  **
 ]]
 
@@ -40,10 +40,28 @@ local utils = {
     }
 }
 
+local icon
 if not filesystem.exists(filesystem.scripts_dir() .. '/watermark/icon.png') then
-    return
+    util.toast('[FS|WaterMark] Watermark icon not found, downloading...')
+    local path_root = filesystem.scripts_dir() .."watermark/"
+    async_http.init('raw.githubusercontent.com', '/IMXNOOBX/ScriptKid/main/stand/watermark/stand_icon.png', function(req)
+		if not req then
+			util.toast("Failed to download watermak/stand_icon.png, please download it manually.\nThe link is copied in your clipboard.")
+            util.copy_to_clipboard("https://github.com/IMXNOOBX/ScriptKid/blob/main/stand/watermark/stand_icon.png", true)
+            return 
+        end
+
+        filesystem.mkdir(path_root)
+		local f = io.open(path_root..'icon.png', "wb")
+		f:write(req)
+		f:close()
+		util.toast("Successfully downloaded icon.png from the repository.")
+        icon = directx.create_texture(filesystem.scripts_dir() .. '/watermark/icon.png')
+	end)
+	async_http.dispatch()
+else
+    icon = directx.create_texture(filesystem.scripts_dir() .. '/watermark/icon.png')
 end
-local icon = directx.create_texture(filesystem.scripts_dir() .. '/watermark/icon.png')
 
 menu.divider(menu.my_root(), "Settings")
 local pos_settings = menu.list(menu.my_root(), "Position", {}, "", function() end)
@@ -73,7 +91,6 @@ menu.rainbow(rgb_text)
 menu.divider(menu.my_root(), "Aditional Settings")
 menu.list_select(menu.my_root(), 'First Label', {}, 'Change the first label in the watermak', {'Disable', 'Stand', 'Version'}, settings.show_firstl, function (val)
     settings.show_firstl = val
-    -- print('Opt: '..val..' | utils.editions[utils.edition+1]: '..utils.editions[utils.edition+1])
 end)
 menu.toggle(menu.my_root(), 'Name', {}, 'Show the name in the watermark', function(val)
 	settings.show_name = val
@@ -84,9 +101,6 @@ end, settings.show_players)
 menu.toggle(menu.my_root(), 'Date', {}, 'Show the name in the watermark', function(val)
 	settings.show_date = val
 end, settings.show_date)
--- menu.toggle(menu.my_root(), 'Date', {}, 'menu.get_edition()', function(val)
--- 	settings.show_date = val
--- end)
 
 menu.divider(menu.my_root(), "")
 menu.toggle_loop(menu.my_root(), "Enable Watermark", {"watermark"}, "Enable/Disable Watermark", function()
@@ -94,10 +108,7 @@ menu.toggle_loop(menu.my_root(), "Enable Watermark", {"watermark"}, "Enable/Disa
 	local wm_text = (settings.show_firstl == 2 and 'Stand | ' or settings.show_firstl == 3 and utils.editions[utils.edition+1]..' | ' or '') .. (settings.show_name and players.get_name(players.user())..' | ' or '') .. (settings.show_players and NETWORK.NETWORK_IS_SESSION_STARTED() and 'players: '..#players.list(true, true, true)..' | ' or '') .. (settings.show_date and os.date('%H:%M:%S') or '')
 
     local tx_size = directx.get_text_size(wm_text, 0.5)
-    -- directx.draw_text(0.5, 0.5, 'x: '..x..' y: '..y..' tx_size: '..tx_size, ALIGN_CENTRE, 1, settings.tx_color, false)
-    -- directx.draw_text(0.5, 0.5, 'settings.bg_color.r '..settings.bg_color.r..' settings.bg_color.g: '..settings.bg_color.g..' settings.bg_color.b: '..settings.bg_color.b, ALIGN_CENTRE, 1, settings.tx_color, false)
-    
-	-- directx.draw_rect(x - tx_size * 0.5, y, tx_size + 0.01, 0.025, settings.bg_color)
+
 	directx.draw_rect(
         x + settings.add_x * 0.5, 
         y, 
