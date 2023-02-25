@@ -1,6 +1,6 @@
 --[[
 **  github.com/IMXNOOBX            **
-**  Version: 1.1.9       		   **
+**  Version: 1.2.0      	   **
 **  github.com/IMXNOOBX/ScriptKid  **
 ]]
 
@@ -23,7 +23,12 @@ local script = {
     blacklisted_player = {},
     scan_players = {},
     next_timeout = 0,
-	stats = {}
+	stats = {
+		total_players = 0,
+		legit_players = 0,
+		modders = 0,
+		advertisers = 0
+	}
 }
 
 local utl = {
@@ -227,9 +232,9 @@ function OnFrame()
 	
 	draw.line(mw + mx + config.x_add, my + config.y_add + 14, mw + mx + config.x_add + 145, my + config.y_add + 14)
 
-	draw.text(mw + mx + config.x_add, my + 15 +config.y_add, tostring('Total Players: '.. script.stats.total_players or '0')) -- total players
-	draw.text(mw + mx + config.x_add, my + 30 + config.y_add, tostring('Legit Players: '.. script.stats.legit_players or '0')) -- legit players
-	draw.text(mw + mx + config.x_add, my + 45 + config.y_add, tostring('Modders: '.. script.stats.modders or '0')) -- modders
-	draw.text(mw + mx + config.x_add, my + 60 + config.y_add, tostring('Advertisers: '.. script.stats.advertisers or '0')) -- advertisers
+	draw.text(mw + mx + config.x_add, my + 15 +config.y_add, tostring('Total Players: '.. script.stats.total_players)) -- total players
+	draw.text(mw + mx + config.x_add, my + 30 + config.y_add, tostring('Legit Players: '.. script.stats.legit_players)) -- legit players
+	draw.text(mw + mx + config.x_add, my + 45 + config.y_add, tostring('Modders: '.. script.stats.modders)) -- modders
+	draw.text(mw + mx + config.x_add, my + 60 + config.y_add, tostring('Advertisers: '.. script.stats.advertisers)) -- advertisers
 	draw.set_rounding(0) -- reset
 end
