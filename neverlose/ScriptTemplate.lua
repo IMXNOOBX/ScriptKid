@@ -1,6 +1,6 @@
 _DEBUG = true
--- ScriptTemplate v1.0.0
-local version = '1.0.0'
+-- ScriptTemplate v1.0.1
+local version = '1.0.1'
 local developers = {'IMXNOOBX'}
 
 local ffi = require 'ffi';
@@ -55,27 +55,27 @@ G = {
 M = {
 	menu = {
 		main_index = G.main.index:label('Welcome ' .. V.client.username .. '!\n'),
-		main_index_script = G.main.index:switch('Enable Script', false):set_tooltip("Enable Script"),
-		main_index_enable = G.main.index:switch('Enable Main', false):set_tooltip("Enable Main tab"),
-		utils_index_enable = G.utils.index:switch('Enable Utils', false):set_tooltip("Enable Utils tab"),
-		misc_index_enable = G.misc.index:switch('Enable Misc', false):set_tooltip("Enable Misc tab"),
+		main_index_script = G.main.index:switch('Enable Script', false):tooltip("Enable Script"),
+		main_index_enable = G.main.index:switch('Enable Main', false):tooltip("Enable Main tab"),
+		utils_index_enable = G.utils.index:switch('Enable Utils', false):tooltip("Enable Utils tab"),
+		misc_index_enable = G.misc.index:switch('Enable Misc', false):tooltip("Enable Misc tab"),
 		
-		developer_index_enable = G.developer and G.developer.index:switch('Enable Developer', false):set_tooltip("Enable Developer tab") or nil,
+		developer_index_enable = G.developer and G.developer.index:switch('Enable Developer', false):tooltip("Enable Developer tab") or nil,
 	}
 }
 
 
 
 function S.render_menu()
-	M.menu.main_index:set_visible(true)
-	M.menu.main_index_script:set_visible(true)
-	M.menu.main_index_enable:set_visible(M.menu.main_index_script:get() == true)
+	M.menu.main_index:visibility(true)
+	M.menu.main_index_script:visibility(true)
+	M.menu.main_index_enable:visibility(M.menu.main_index_script:get() == true)
 
-	M.menu.utils_index_enable:set_visible(M.menu.main_index_script:get() == true)
-	M.menu.misc_index_enable:set_visible(M.menu.main_index_script:get() == true)
+	M.menu.utils_index_enable:visibility(M.menu.main_index_script:get() == true)
+	M.menu.misc_index_enable:visibility(M.menu.main_index_script:get() == true)
 	
 	if M.menu.developer_index_enable then
-		M.menu.developer_index_enable:set_visible(M.menu.main_index_script:get() == true)
+		M.menu.developer_index_enable:visibility(M.menu.main_index_script:get() == true)
 	end
 end
 
