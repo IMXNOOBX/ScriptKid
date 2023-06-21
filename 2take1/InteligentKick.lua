@@ -1,20 +1,34 @@
-if not menu.is_trusted_mode_enabled(1 << 2) then
-	menu.notify("You must turn on trusted mode->Natives to use this script.", "InteligentKick", 10, 0xff0000ff)
-	return menu.exit()
-end
+--[[
+**  github.com/IMXNOOBX            **
+**  Version: 1.0.5       		   **
+**  github.com/IMXNOOBX/ScriptKid  **
+**  Description: Imagine making a better kick than the ones that come with a 120$ menu   **
+]]
+
 if not menu.is_trusted_mode_enabled(1 << 1) then
 	menu.notify("You must turn on trusted mode->Globals/Locals to use this script.", "InteligentKick", 10, 0xff0000ff)
+	return menu.exit()
+end
+if not menu.is_trusted_mode_enabled(1 << 2) then
+	menu.notify("You must turn on trusted mode->Natives to use this script.", "InteligentKick", 10, 0xff0000ff)
 	return menu.exit()
 end
 
 local script_host = menu.get_feature_by_hierarchy_key("online.lobby.force_script_host")
 
-function gen(arg)
-    local args = {}
-    for i = 1, arg do
-        args[i] = math.random(-2147483648, 2147483647)
-    end
-    return args
+local block_sync_all_but = function(pid, callback)
+	for i = 1, 32, 1 do
+		if player.is_player_valid(i) and i ~= player.player_id() and i ~= pid then
+			menu.get_feature_by_hierarchy_key("online.online_players.player_"..pid..".block.block_outgoing_syncs").on = true
+		end
+	end
+	system.yield(100)
+	callback()
+	for i = 1, 32, 1 do
+		if player.is_player_valid(i) and i ~= player.player_id() and i ~= pid then
+			menu.get_feature_by_hierarchy_key("online.online_players.player_"..pid..".block.block_outgoing_syncs").on = false
+		end
+	end
 end
 
 menu.add_player_feature("Inteligent Kick", "action", 0, function(f, pid)
@@ -32,9 +46,21 @@ menu.add_player_feature("Inteligent Kick", "action", 0, function(f, pid)
 	end
 
 	if player.is_player_valid(pid) then
-		script.trigger_script_event(210548496, pid, { -1091407522, 26, 1, 599432297 }) -- { -1091407522, 26, 1, 599432297 }
+		script.trigger_script_event(210548496, pid, { -1091407522, 26, 1, 599432297 }) -- Stand script event
 		reason = 'Script'
 		system.yield(1000)
+	end
+
+	if player.is_player_valid(pid) then
+		while script.get_host_of_this_script() ~= player.player_id() do
+			script_host:toggle()
+			system.yield(100)
+		end
+	
+		script.set_global_i(1885447 + 1 + (pid * 1), 1)
+
+		reason = 'Script Host Kick'
+		system.yield(5 * 1000)
 	end
 
 	if player.is_player_valid(pid) then
@@ -55,18 +81,6 @@ menu.add_player_feature("Inteligent Kick", "action", 0, function(f, pid)
 	end
 
 	if player.is_player_valid(pid) then
-		while script.get_host_of_this_script() ~= player.player_id() do
-			script_host:toggle()
-			system.yield(100)
-		end
-	
-		script.set_global_i(1885447 + 1 + (pid * 1), 1)
-
-		reason = 'Script Host Kick'
-		system.yield(5 * 1000)
-	end
-
-	if player.is_player_valid(pid) then
 		network.force_remove_player(pid)
 		reason = 'Fallback'
 		system.yield(1000)
@@ -74,28 +88,3 @@ menu.add_player_feature("Inteligent Kick", "action", 0, function(f, pid)
 
 	menu.notify("Sent kick to ".. name .. " using "..reason, "Inteligent Kick", 10, 0x2C8FFE00)
 end)
-
-local flag = player.add_modder_flag('FutureBlacklist')
-
---[[
-	menu.add_player_feature("Add player flag", "action", 0, function(f, pid)
-		if not player.is_player_valid(pid) then
-			return HANDLER_POP
-		end
-		-- local name = player.get_player_name(pid)
-	
-		-- for i = 1, 100, 1 do
-		-- 	script.trigger_script_event(1757755807, pid, gen(2))
-		-- end
-		
-		while script.get_host_of_this_script() ~= player.player_id() do
-			script_host:toggle()
-			system.yield(100)
-		end
-	
-		local second = script.set_global_i(1885447 + 1 + (pid * 1), 1)
-		print(second)
-	
-		menu.notify("Response: ".. tostring(second), "Inteligent Kick", 10, 0x2C8FFE00)
-	end)
-]]
