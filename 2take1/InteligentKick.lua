@@ -2,7 +2,6 @@
 **  github.com/IMXNOOBX            **
 **  Version: 1.0.5       		   **
 **  github.com/IMXNOOBX/ScriptKid  **
-**  Description: Imagine making a better kick than the ones that come with a 120$ menu   **
 ]]
 
 if not menu.is_trusted_mode_enabled(1 << 1) then
