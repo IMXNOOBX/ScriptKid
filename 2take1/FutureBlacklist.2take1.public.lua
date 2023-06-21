@@ -1,3 +1,9 @@
+--[[
+**  github.com/IMXNOOBX            **
+**  Version: 1.0.3       		   **
+**  github.com/IMXNOOBX/ScriptKid  **
+]]
+
 if not menu.is_trusted_mode_enabled(1 << 2) then
 	menu.notify("You must turn on trusted mode->Natives to use this script.", "FutureBlacklist", 10, 0xff0000ff)
 	return menu.exit()
