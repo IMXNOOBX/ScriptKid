@@ -1,6 +1,6 @@
 --[[
 **  github.com/IMXNOOBX            **
-**  Version: 1.0.4       		   **
+**  Version: 1.0.5       		   **
 **  github.com/IMXNOOBX/ScriptKid  **
 **  Features:					   **
 **  Automatic PlayerSpoofer		   **
@@ -15,6 +15,21 @@ local player_spoofer = menu.get_feature_by_hierarchy_key("online.player_spoofer.
 local script_host = menu.get_feature_by_hierarchy_key("online.lobby.force_script_host")
 local online_tab = menu.get_cat_children("online")
 local player_spoofer_profile = nil
+
+local last_notify;
+local notify = function(string, type)
+	string = tostring(string)
+	if string == last_notify then return end last_notify = string;
+
+	local color = 0x0000FFFF
+	if type == 'success' then
+		color = 0x2C7CFE00
+	elseif type == 'error' then
+		color = 0xFF0000FF
+	end
+	menu.notify(string, "QOL Automations", 10, color)
+	print('[FutureBlacklist] | '..string)
+end
 
 if not menu.is_trusted_mode_enabled(1 << 2) then
 	menu.notify("You must turn on trusted mode->Natives to use this script.", "QOL Automations", 10, 0xff0000ff)
@@ -37,7 +52,7 @@ menu.create_thread(function()
 		if (network.is_session_started()) then
 			if (not business_manager.on) then
 				business_manager.on = true
-				menu.notify("Automatically enabled business manager", "Dont thank me!", 10, 0x2C8FFE00)
+				notify("Automatically enabled business manager", 'success')
 				system.yield(10 * 1000)
 			end
 		else
@@ -45,7 +60,7 @@ menu.create_thread(function()
 				player_spoofer_profile:toggle()
 				system.yield(100)
 				player_spoofer.on = true
-				menu.notify("Automatically enabled player spoofer", "Dont thank me!", 10, 0x2C8FFE00)
+				notify("Automatically enabled player spoofer", 'success')
 				system.yield(10 * 1000)
 			end
 		end
@@ -96,7 +111,7 @@ menu.create_thread(function()
 						native.call(0x92C47782FDA8B2A3, cords.x, cords.y, cords.z, 10, value, -422877666, true) -- CREATE_MODEL_SWAP
 					end
 
-					menu.notify("Automatically removed cage" ..(name ~= nil and " from " .. name or "!"), "Dont thank me!", 3, 0x2C8FFE00)
+					notify("Automatically removed cage" ..(name ~= nil and " from " .. name or "!"), 'success')
 				end
 			end
 		end
