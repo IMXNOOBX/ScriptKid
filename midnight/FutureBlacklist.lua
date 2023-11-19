@@ -18,7 +18,7 @@ local config = {
 }
 
 local script = {
-    host = "https://api.futuredb.shop",
+    host = "https://gtaapi.imxnoobx.com",
 	load_ticks = system.ticks(),
     blacklisted_player = {},
     scan_players = {},
