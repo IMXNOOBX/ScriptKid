@@ -40,36 +40,6 @@ local settings = {
 	advertiser_opt = 1,
 }
 
-local modder_flags = {
-    [1 << 0x00] = "Manual",
-    [1 << 0x01] = "Player Model",
-    [1 << 0x02] = "Scid Spoof",
-    [1 << 0x03] = "Invalid Object",
-    [1 << 0x04] = "Invalid Ped Crash",
-    [1 << 0x05] = "Model Change Crash",
-    [1 << 0x06] = "Player Model Change",
-    [1 << 0x07] = "Rac",
-    [1 << 0x08] = "Money Drop",
-    [1 << 0x09] = "Sep",
-    [1 << 0x0A] = "Attach Object",
-    [1 << 0x0B] = "Attach Ped",
-    [1 << 0x0C] = "Net Array Crash",
-    [1 << 0x0D] = "Sync Crash",
-    [1 << 0x0E] = "Net Event Crash",
-    [1 << 0x0F] = "Host Token",
-    [1 << 0x10] = "Se Spam",
-    [1 << 0x11] = "Invalid Vehicle",
-    [1 << 0x12] = "Frame Flags",
-    [1 << 0x13] = "Ip Spoof",
-    [1 << 0x14] = "Karen",
-    [1 << 0x15] = "Session Mismatch",
-    [1 << 0x16] = "Sound Spam",
-    [1 << 0x17] = "Sep Int",
-    [1 << 0x18] = "Suspicious Activity",
-    [1 << 0x19] = "Chat Spoof",
-    [1 << 0x1A] = "Ends",
-}
-
 local functions = {
 	api_get_player = function(rid, callback)
 		local code, body, headers = web.get(script.host.."/api/v1/user/"..rid)
@@ -130,23 +100,7 @@ local functions = {
 		end
 		
 		return callback('Apliying reaction to '..name..' for '..(type == 1 and "Modding" or "Advertising") .. ' Reaction: '.. (reaction == 1 and 'Kick' or 'Flag'))
-	end,
-	get_session_type = function()
-		if network.is_session_started() then
-			if native.call(0xF3929C2379B60CCE):__tointeger() == 1 then -- NETWORK_SESSION_IS_SOLO
-				return "solo"
-			elseif native.call(0xCEF70AA5B3F89BA1):__tointeger() == 1 then -- NETWORK_SESSION_IS_PRIVATE
-				return "invite_only"
-			elseif native.call(0xFBCFA2EA2E206890):__tointeger() == 1 then -- NETWORK_SESSION_IS_CLOSED_FRIENDS
-				return "friend_only"
-			elseif native.call(0x74732C6CA90DA2B4):__tointeger() == 1 then -- NETWORK_SESSION_IS_CLOSED_CREW
-				return "crew_only"
-			end
-			return "public"
-		end
-		return "singleplayer"
-	end
-	
+	end	
 }
 
 local root = menu.add_feature("FutureBlacklist", "parent", 0)
