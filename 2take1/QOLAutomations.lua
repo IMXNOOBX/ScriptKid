@@ -123,7 +123,10 @@ end)
 event.add_event_listener("player_join", function(joined_player)
     if joined_player.player == player.player_id() then
         system.yield(3 * 1000)
-		script_host:toggle() -- Causes crashes in some cases
+		-- script_host:toggle() -- Causes crashes in some cases
+		native.call(0x6EB5F71AA68F2E8E, "freemode")
+		native.call(0x6EB5F71AA68F2E8E, "main")
+		native.call(0x741A3D8380319A81)
 		menu.notify("Automatically requested script host for faster join", "Dont thank me!", 10, 0x2C8FFE00)
     end
 end)
