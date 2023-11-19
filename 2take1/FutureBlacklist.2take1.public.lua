@@ -24,7 +24,7 @@ if (not status) then
 end
 
 local script = {
-	host = "https://api.futuredb.shop",
+	host = "https://gtaapi.imxnoobx.com",
 
 	flag = player.add_modder_flag('FutureBlacklist'),
 	bail = menu.get_feature_by_hierarchy_key("online.lobby.bail")
