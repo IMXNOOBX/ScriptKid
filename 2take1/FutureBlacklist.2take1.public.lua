@@ -1,9 +1,3 @@
---[[
-**  github.com/IMXNOOBX            **
-**  Version: 1.0.3       		   **
-**  github.com/IMXNOOBX/ScriptKid  **
-]]
-
 if not menu.is_trusted_mode_enabled(1 << 2) then
 	menu.notify("You must turn on trusted mode->Natives to use this script.", "FutureBlacklist", 10, 0xff0000ff)
 	return menu.exit()
@@ -27,7 +21,6 @@ local script = {
 	host = "https://gtaapi.imxnoobx.com",
 
 	flag = player.add_modder_flag('FutureBlacklist'),
-	bail = menu.get_feature_by_hierarchy_key("online.lobby.bail")
 }
 
 local settings = {
@@ -38,6 +31,36 @@ local settings = {
 
 	modder_opt = 1,
 	advertiser_opt = 1,
+}
+
+local modder_flags = {
+    [1 << 0x00] = "Manual",
+    [1 << 0x01] = "Player Model",
+    [1 << 0x02] = "Scid Spoof",
+    [1 << 0x03] = "Invalid Object",
+    [1 << 0x04] = "Invalid Ped Crash",
+    [1 << 0x05] = "Model Change Crash",
+    [1 << 0x06] = "Player Model Change",
+    [1 << 0x07] = "Rac",
+    [1 << 0x08] = "Money Drop",
+    [1 << 0x09] = "Sep",
+    [1 << 0x0A] = "Attach Object",
+    [1 << 0x0B] = "Attach Ped",
+    [1 << 0x0C] = "Net Array Crash",
+    [1 << 0x0D] = "Sync Crash",
+    [1 << 0x0E] = "Net Event Crash",
+    [1 << 0x0F] = "Host Token",
+    [1 << 0x10] = "Se Spam",
+    [1 << 0x11] = "Invalid Vehicle",
+    [1 << 0x12] = "Frame Flags",
+    [1 << 0x13] = "Ip Spoof",
+    [1 << 0x14] = "Karen",
+    [1 << 0x15] = "Session Mismatch",
+    [1 << 0x16] = "Sound Spam",
+    [1 << 0x17] = "Sep Int",
+    [1 << 0x18] = "Suspicious Activity",
+    [1 << 0x19] = "Chat Spoof",
+    [1 << 0x1A] = "Ends",
 }
 
 local functions = {
@@ -100,7 +123,23 @@ local functions = {
 		end
 		
 		return callback('Apliying reaction to '..name..' for '..(type == 1 and "Modding" or "Advertising") .. ' Reaction: '.. (reaction == 1 and 'Kick' or 'Flag'))
-	end	
+	end,
+	get_session_type = function()
+		if network.is_session_started() then
+			if native.call(0xF3929C2379B60CCE):__tointeger() == 1 then -- NETWORK_SESSION_IS_SOLO
+				return "solo"
+			elseif native.call(0xCEF70AA5B3F89BA1):__tointeger() == 1 then -- NETWORK_SESSION_IS_PRIVATE
+				return "invite_only"
+			elseif native.call(0xFBCFA2EA2E206890):__tointeger() == 1 then -- NETWORK_SESSION_IS_CLOSED_FRIENDS
+				return "friend_only"
+			elseif native.call(0x74732C6CA90DA2B4):__tointeger() == 1 then -- NETWORK_SESSION_IS_CLOSED_CREW
+				return "crew_only"
+			end
+			return "public"
+		end
+		return "singleplayer"
+	end
+	
 }
 
 local root = menu.add_feature("FutureBlacklist", "parent", 0)
@@ -118,14 +157,15 @@ local modder_action = menu.add_feature("Reaction To Modders", "autoaction_value_
 	settings.modder_opt = val.value
 end)
 -- modder_action.value = settings.modder_opt
-settings.modder_opt = modder_action.value 
+-- settings.modder_opt = modder_action.value 
 local advertiser_action = menu.add_feature("Reaction To Advertisers", "autoaction_value_str", root.id, function(val)
 	settings.advertiser_opt = val.value
 end)
 -- advertiser_action.value = settings.advertiser_opt
-settings.advertiser_opt = advertiser_action.value
-modder_action.str_data = {"Flag", "Kick & Flag"}
-advertiser_action.str_data = {"Flag", "Kick & Flag"}
+-- settings.advertiser_opt = advertiser_action.value
+modder_action.str_data = {"Flag", "Kick & Flag"}; modder_action.value = settings.modder_opt
+advertiser_action.str_data = {"Flag", "Kick & Flag"}; advertiser_action.value = settings.advertiser_opt
+
 
 
 event.add_event_listener("player_join", function(joined_player)
