@@ -1,6 +1,6 @@
 --[[
 **  github.com/IMXNOOBX            **
-**  Version: 2.0.0      	   **
+**  Version: 2.0.2            	   **
 **  github.com/IMXNOOBX/ScriptKid  **
 ]]
 
@@ -8,7 +8,7 @@ local root = fs.get_dir_script()..'/'
 local json = fs.file_exists(root .. 'lib/json.lua') and require("lib/json") or print('json lib not found') -- download: https://github.com/IMXNOOBX/ScriptKid/blob/main/lib/json.lua
 
 local config = {
-    reaction = 'block_join', -- Dont put anything if you dont want to react to them
+    reaction = '', -- Dont put anything if you dont want to react to them
     exclude_frieds = true,
     notifications = true,
     timeout = 1500, -- Timeout before checking the next player. low values such as less that 200 mmight crash your game
@@ -43,11 +43,11 @@ local utl = {
                 return callback(-1)
             end
             if parsed['data']['is_modder'] == true then
-                print(parsed['data']['player_note'])
+                -- print(parsed['data']['player_note'])
                 return callback(1, parsed['data']['player_note']:gsub("+", " "))
             end
             if parsed['data']['advertiser'] == true then
-                print(parsed['data']['player_note'])
+                -- print(parsed['data']['player_note'])
                 return callback(2, parsed['data']['player_note']:gsub("+", " "))
             end
             return callback(-1)
@@ -84,8 +84,17 @@ events.on_script_tick(function()
         if utils.get_current_time_millis() <= script.next_timeout then
             return
         end
+
+        if not player.ply:is_active() then
+            return
+        end
+
+        player.rid = player.ply:get_rockstar_id()
+
         utl.api_get_player(player.rid, function(res, msg)
             if res and res ~= -1 then
+                -- print('Player: ' .. player.name .. ' Rid: ' .. player.rid .. ' Result: ' .. res .. ' Message: ' .. msg)
+
                 local index = player.ply:get_index()
                 script.blacklisted_player[index] = true
                 if config.notifications then
@@ -124,6 +133,7 @@ events.on_player_join(function(ply)
     if config.scanner_mode == false then
         return
     end
+
     table.insert(script.scan_players, {
         ply = ply,
         name = ply:get_name(),
@@ -222,11 +232,9 @@ events.on_frame(function()
     -- if true then return end
 	if utils.get_current_time_millis() <= script.load_ticks + 10000 then return end
 	-- if not config.enabled then return end
-	-- if not menu.is_menu_opened() then
-	-- 	return
-	-- end
-
-    -- print('Menu: ' .. ui.get_position())
+	if not ui.is_opened() then
+		return
+	end
 
 	local y = draw.get_screen_height() or draw.get_window_height()
 	local x = draw.get_screen_width() or draw.get_window_width()
