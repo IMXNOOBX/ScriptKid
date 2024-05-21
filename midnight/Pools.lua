@@ -1,6 +1,6 @@
 --[[
 **  github.com/IMXNOOBX            **
-**  Version: 1.0.8       		   **
+**  Version: 1.0.9       		   **
 **  github.com/IMXNOOBX/ScriptKid  **
 ]]
 
@@ -12,23 +12,23 @@ local config = {
 }
 
 local useful = {
-	load_ticks = system.ticks(),
+	load_ticks = utils.get_current_time_millis(),
 }
 local r, g, b, a = 30, 33, 35, 200
 
-function OnFrame()
-	if system.ticks() <= useful.load_ticks + 10000 then return end
+events.on_frame(function()
+	if utils.get_current_time_millis() <= useful.load_ticks + 10000 then return end
 	if not config.enabled then return end
-	if config.only_menu_open and not menu.is_menu_opened() then
+	if config.only_menu_open and not ui.is_opened() then
 		return
 	end
 
 	local y = draw.get_screen_height() or draw.get_window_height()
 	local x = draw.get_screen_width() or draw.get_window_width()
-	local mx, my = menu.get_main_menu_pos_x(), menu.get_main_menu_pos_y()
-	local mw, mh = menu.get_main_menu_size_x(), menu.get_main_menu_size_y()
+	local mx, my = ui.get_position()
+	local mw, mh = ui.get_size()
 
-	local rounding = menu.get_window_rounding()
+	local rounding = 5
 	local pools = {
 		vehicles = pools.get_all_vehicles(),
 		peds = pools.get_all_peds(),
@@ -53,4 +53,4 @@ function OnFrame()
 	draw.text(mw + mx + config.x_add, my + 45 + config.y_add, tostring('Objects: '.. #pools.objects..' / 2300')) -- Objects
 	draw.text(mw + mx + config.x_add, my + 60 + config.y_add, tostring('Entities: '.. #pools.entities..' / 700')) -- Entities
 	draw.text(mw + mx + config.x_add, my + 75 + config.y_add, tostring('Pickups: '.. #pools.pickups..' / 73')) -- Pickups
-end
+end)

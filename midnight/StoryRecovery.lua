@@ -1,18 +1,40 @@
 --[[
 **  github.com/IMXNOOBX            **
-**  Version: 1.0.2       		   **
+**  Version: 1.0.3       		   **
 **  github.com/IMXNOOBX/ScriptKid  **
 ]]
 
-function OnInit()
-	if lobby.is_session_active() then utils.notify('StoryRecovery', 'Join "Story Mode" before doing anything!', gui_icon.settings, notify_type.warning) else utils.notify('StoryRecovery', 'Unload the script to\nset the maximun Story Mode money!', gui_icon.settings, notify_type.warning) end
-end
+events.on_init(function()
+	if lobby.is_session_active() then 
+        ui.popup('StoryRecovery', 'Join "Story Mode" before doing anything!', Icons.SETTINGS, PopupType.BOX)
+    else 
+        ui.popup('StoryRecovery', 'Check the new tab to add the money!', Icons.SETTINGS, PopupType.BOX)
+    end
+end)
 
-function OnDone()
-	if lobby.is_session_active() then return utils.notify('StoryRecovery', 'Join "Story Mode" before doing anything!', gui_icon.settings, notify_type.warning) end
+local run = false
+local function set_money()
+    if lobby.is_session_active() then return ui.popup('StoryRecovery', 'Join "Story Mode" before doing anything!', Icons.SETTINGS, PopupType.BOX) end
 	STATS.STAT_SET_INT(string.smart_joaat('SP0_TOTAL_CASH'), 2069696969, true) -- Michael
 	STATS.STAT_SET_INT(string.smart_joaat('SP1_TOTAL_CASH'), 2069696969, true) -- Franklin
 	STATS.STAT_SET_INT(string.smart_joaat('SP2_TOTAL_CASH'), 2069696969, true) -- Trevor
-
-	utils.notify('StoryRecovery', 'Money set, Enjoy your game!', gui_icon.settings, notify_type.default)
+    
+    ui.popup('StoryRecovery', 'Money set, Make sure you save by sleeping & enjoy your game!', Icons.SETTINGS, PopupType.BOX)
 end
+
+-- Menu
+
+local sr_page = ui.new_page('StoryRecovery', Icons.PLUS)
+
+local main_group = sr_page:new_group('Main', PageColumn.FIRST)
+
+local add_money_buttom = main_group:new_button('Add Story Max Money', function() 
+    run = true
+end)
+
+events.on_script_tick(function()
+    if run then
+        set_money()
+        run = false
+    end
+end) 
