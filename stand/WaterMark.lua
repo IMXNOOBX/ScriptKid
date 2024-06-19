@@ -1,6 +1,6 @@
 --[[
 **  github.com/IMXNOOBX            **
-**  Version: 1.0.8       		   **
+**  Version: 1.0.9       		   **
 **  github.com/IMXNOOBX/ScriptKid  **
 ]]
 
@@ -42,9 +42,14 @@ local utils = {
 
 local icon
 if not filesystem.exists(filesystem.scripts_dir() .. '/watermark/icon.png') then
+    if not async_http.have_access() then
+        util.toast('[FS|WaterMark] Please enable the HTTP feature in the settings to download automatically.')
+        return util.stop_script()
+    end
     util.toast('[FS|WaterMark] Watermark icon not found, downloading...')
     local path_root = filesystem.scripts_dir() .."watermark/"
     async_http.init('raw.githubusercontent.com', '/IMXNOOBX/ScriptKid/main/stand/watermark/stand_icon.png', function(req)
+        print(req)
 		if not req then
 			util.toast("Failed to download watermak/stand_icon.png, please download it manually.\nThe link is copied in your clipboard.")
             util.copy_to_clipboard("https://github.com/IMXNOOBX/ScriptKid/blob/main/stand/watermark/stand_icon.png", true)
@@ -117,7 +122,8 @@ menu.toggle_loop(menu.my_root(), "Enable Watermark", {"watermark"}, "Enable/Disa
         settings.bg_color
     )
     
-	directx.draw_texture(icon, 
+	directx.draw_texture(
+        icon, 
         0.0055, 
         0.0055, 
         0.5, 
