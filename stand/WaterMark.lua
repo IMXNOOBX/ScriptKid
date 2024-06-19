@@ -49,7 +49,6 @@ if not filesystem.exists(filesystem.scripts_dir() .. '/watermark/icon.png') then
     util.toast('[FS|WaterMark] Watermark icon not found, downloading...')
     local path_root = filesystem.scripts_dir() .."watermark/"
     async_http.init('raw.githubusercontent.com', '/IMXNOOBX/ScriptKid/main/stand/watermark/stand_icon.png', function(req)
-        print(req)
 		if not req then
 			util.toast("Failed to download watermak/stand_icon.png, please download it manually.\nThe link is copied in your clipboard.")
             util.copy_to_clipboard("https://github.com/IMXNOOBX/ScriptKid/blob/main/stand/watermark/stand_icon.png", true)
@@ -110,7 +109,24 @@ end, settings.show_date)
 menu.divider(menu.my_root(), "")
 menu.toggle_loop(menu.my_root(), "Enable Watermark", {"watermark"}, "Enable/Disable Watermark", function()
     if menu.is_in_screenshot_mode() then return end
-	local wm_text = (settings.show_firstl == 2 and 'Stand | ' or settings.show_firstl == 3 and utils.editions[utils.edition+1]..' | ' or '') .. (settings.show_name and players.get_name(players.user())..' | ' or '') .. (settings.show_players and NETWORK.NETWORK_IS_SESSION_STARTED() and 'players: '..#players.list(true, true, true)..' | ' or '') .. (settings.show_date and os.date('%H:%M:%S') or '')
+
+    local wt_parts = {}
+
+    if settings.show_firstl == 2 then
+        table.insert(wt_parts, 'Stand')
+    elseif settings.show_firstl == 3 then
+        table.insert(wt_parts, utils.editions[utils.edition + 1])
+    end
+
+    if settings.show_name then
+        table.insert(wt_parts, players.get_name(players.user())) end
+
+    if settings.show_players and NETWORK.NETWORK_IS_SESSION_STARTED() then
+        table.insert(wt_parts, 'players: ' .. #players.list(true, true, true)) end
+
+    if settings.show_date then table.insert(wt_parts, os.date('%H:%M:%S')) end
+
+    local wm_text = table.concat(wt_parts, ' | ')
 
     local tx_size = directx.get_text_size(wm_text, 0.5)
 
